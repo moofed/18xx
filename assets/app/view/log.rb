@@ -73,7 +73,14 @@ module View
             h('span.message', message_props, line[:message]),
           ])
         elsif line.is_a?(Engine::Action::Message)
-          h(:div, { style: { fontWeight: 'bold' } }, "#{line.entity.name}: #{line.message}")
+          time = Time.at(line.created_at)
+          timestamp = time.strftime(time + 86_400 < Time.now ? '%F %T' : '%T')
+          h('div.logline', line_props, [
+            h('span.timestamp', timestamp_props, timestamp),
+            h('span.username', username_props, line.entity.name),
+            h('span.message', message_props, line.message),
+          ])
+          # h(:div, { style: { fontWeight: 'bold' } }, "#{line.entity.name}: #{line.message}")
         end
       end
 
