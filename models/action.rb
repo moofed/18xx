@@ -7,6 +7,6 @@ class Action < Base
   many_to_one :user
 
   def to_h
-    action.to_h
+    action.to_h.merge(created_at: created_at_ts)
   end
 end
